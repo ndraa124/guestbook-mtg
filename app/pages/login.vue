@@ -58,6 +58,10 @@
     middleware: ['guest'],
   });
 
+  useHead({
+    title: 'Login',
+  });
+
   const username = ref('');
   const password = ref('');
   const isLoading = ref(false);

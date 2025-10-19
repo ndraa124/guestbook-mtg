@@ -106,6 +106,10 @@
     middleware: ['auth'],
   });
 
+  useHead({
+    title: 'Dashboard',
+  });
+
   const {
     data: guestBook,
     pending,

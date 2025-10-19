@@ -12,5 +12,14 @@
 </template>
 
 <script setup lang="ts">
+  useHead({
+    titleTemplate: titleChunk => {
+      return titleChunk ? `${titleChunk} | Guest Book` : 'Guest Book';
+    },
+    bodyAttrs: {
+      class: 'hold-transition sidebar-mini',
+    },
+  });
+
   const { toast } = useToastState();
 </script>

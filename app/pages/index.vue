@@ -288,6 +288,10 @@
 <script setup lang="ts">
   import type { GuestBook, FormState } from '~/types/guestbook';
 
+  useHead({
+    title: 'Home',
+  });
+
   const { showToast } = useToastState();
 
   const form = reactive<FormState>({
