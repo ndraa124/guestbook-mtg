@@ -1,17 +1,45 @@
 import { google } from 'googleapis';
-import { defineEventHandler, readBody } from 'h3';
+import { put } from '@vercel/blob';
 
 export default defineEventHandler(async event => {
-  const body = await readBody(event);
+  const formData = await readMultipartFormData(event);
 
-  if (!body.name || !body.phone_number || !body.address || !body.needs) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: 'Semua field (Nama, Ponsel, Alamat, Keperluan) wajib diisi.',
-    });
+  if (!formData) {
+    throw createError({ statusCode: 400, statusMessage: 'Data form tidak ada.' });
   }
 
+  let formFields: Record<string, string> = {};
+  let photoFile: { filename: string; data: Buffer; type: string } | null = null;
+
+  for (const part of formData) {
+    if (part.name === 'photo' && part.filename && part.data.length > 0) {
+      photoFile = {
+        filename: part.filename,
+        data: part.data,
+        type: part.type!,
+      };
+    } else if (part.name) {
+      formFields[part.name] = part.data.toString();
+    }
+  }
+
+  const { name, phone_number, address, needs } = formFields;
+
+  if (!name || !phone_number || !address || !needs) {
+    throw createError({ statusCode: 400, statusMessage: 'Semua field wajib diisi.' });
+  }
+
+  let photoUrl = '';
+
   try {
+    if (photoFile) {
+      const { url } = await put(photoFile.filename, photoFile.data, {
+        access: 'public',
+        contentType: photoFile.type,
+      });
+      photoUrl = url;
+    }
+
     const config = useRuntimeConfig();
     const auth = new google.auth.GoogleAuth({
       credentials: {
@@ -25,16 +53,17 @@ export default defineEventHandler(async event => {
     const newRow = [
       crypto.randomUUID(),
       new Date().toISOString(),
-      body.name,
-      body.phone_number,
-      body.address,
-      body.needs,
-      'PENDING',
+      name,
+      phone_number,
+      address,
+      needs,
+      'APPROVED',
+      photoUrl,
     ];
 
     await sheets.spreadsheets.values.append({
       spreadsheetId: config.googleSheetId,
-      range: 'guest-book!A:G',
+      range: 'guest-book!A:H',
       valueInputOption: 'USER_ENTERED',
       requestBody: {
         values: [newRow],

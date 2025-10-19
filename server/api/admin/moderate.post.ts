@@ -1,5 +1,4 @@
 import { google } from 'googleapis';
-import { defineEventHandler, readBody } from 'h3';
 
 async function getSheetId(
   sheets: any,

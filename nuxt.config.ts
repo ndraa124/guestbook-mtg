@@ -5,7 +5,7 @@ export default defineNuxtConfig({
 
   modules: ['@nuxtjs/tailwindcss'],
 
-  css: ['~/assets/css/main.css'],
+  css: ['~/assets/css/main.css', '~/assets/css/print.css'],
 
   runtimeConfig: {
     googleClientEmail: process.env.GOOGLE_CLIENT_EMAIL,

@@ -1,5 +1,4 @@
 import { google } from 'googleapis';
-import { defineEventHandler, readBody } from 'h3';
 import { compareSync } from 'bcryptjs';
 
 export default defineEventHandler(async event => {

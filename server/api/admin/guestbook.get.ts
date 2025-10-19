@@ -1,5 +1,4 @@
 import { google } from 'googleapis';
-import { defineEventHandler } from 'h3';
 
 export default defineEventHandler(async event => {
   const token = getCookie(event, 'auth-token');
@@ -23,7 +22,7 @@ export default defineEventHandler(async event => {
 
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: config.googleSheetId,
-      range: 'guest-book!A:G',
+      range: 'guest-book!A:H',
     });
 
     const rows = response.data.values;
@@ -39,6 +38,7 @@ export default defineEventHandler(async event => {
       address: row[4],
       needs: row[5],
       status: row[6] || 'PENDING',
+      photo_url: row[7] || '',
     }));
 
     return messages;

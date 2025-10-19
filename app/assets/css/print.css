@@ -1,0 +1,41 @@
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #pdf-content,
+  #pdf-content * {
+    visibility: visible;
+  }
+
+  #pdf-content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    color: black;
+    background: white;
+  }
+
+  * {
+    accent-color: exact !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    background-color: transparent !important;
+  }
+
+  table thead {
+    display: table-header-group;
+  }
+
+  tr,
+  .page-break {
+    page-break-inside: avoid;
+  }
+
+  table {
+    page-break-before: auto;
+  }
+}
