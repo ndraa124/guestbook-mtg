@@ -12,7 +12,7 @@
         <h2 class="text-2xl sm:text-3xl font-semibold text-indigo-500">Buku Tamu Digital</h2>
 
         <h1 class="text-4xl sm:text-4xl font-bold text-indigo-700 mt-2">
-          Pemerintah Desa Motoling II
+          Pemerintah Desa Motoling Dua
         </h1>
 
         <p class="text-gray-700 mt-4 text-md">Silakan tinggalkan jejak dan pesan Anda di sini.</p>
