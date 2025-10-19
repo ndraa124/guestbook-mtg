@@ -74,7 +74,7 @@
       </section>
 
       <section>
-        <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Pesan Terbaru</h2>
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Keperluan Terbaru</h2>
 
         <div
           v-if="pending"
@@ -95,7 +95,7 @@
         <div
           v-else-if="error"
           class="text-center p-6 bg-red-50 border border-red-200 rounded-lg">
-          <p class="text-red-700 font-semibold">Oops! Gagal memuat pesan.</p>
+          <p class="text-red-700 font-semibold">Oops! Gagal memuat data.</p>
           <p class="text-red-600 text-sm mb-4">Mungkin ada masalah dengan koneksi. Coba lagi.</p>
           <button
             @click="refresh()"
